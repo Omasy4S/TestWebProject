@@ -1,0 +1,85 @@
+﻿@using WebApplication1.Controllers
+@model CalculateTwoNumbers
+@{
+    ViewData["Title"] = "Calculation";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header bg-primary text-white py-3 rounded-top-3">
+                    <h3 class="card-title mb-0 text-center">
+                        <i class="fas fa-calculator me-2"></i>Калькулятор сложения
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-controller="Home" asp-action="Calculation" method="post">
+                        <!-- Измененный блок валидации -->
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div asp-validation-summary="All" class="alert alert-danger mb-4"></div>
+                        }
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-number me-2 text-primary"></i>Первое значение
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="fas fa-arrow-right text-primary"></i>
+                                </span>
+                                <input type="number" asp-for="FirstValue" class="form-control form-control-lg"
+                                       placeholder="Введите число" />
+                            </div>
+                            <span asp-validation-for="FirstValue" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-number me-2 text-primary"></i>Второе значение
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="fas fa-arrow-right text-primary"></i>
+                                </span>
+                                <input type="number" asp-for="SecondValue" class="form-control form-control-lg"
+                                       placeholder="Введите число" />
+                            </div>
+                            <span asp-validation-for="SecondValue" class="text-danger"></span>
+                        </div>
+
+                        <div class="text-center mb-3">
+                            <button class="btn btn-primary btn-lg w-100 py-3 rounded-pill" type="submit">
+                                <i class="fas fa-plus-circle me-2"></i>Сложить значения
+                            </button>
+                        </div>
+
+                        <!-- Блок результата -->
+                        @if (Model != null && ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-success border-0 rounded-3 p-4 text-center mt-4">
+                                <h4 class="alert-heading mb-3">
+                                    <i class="fas fa-check-circle me-2"></i>Результат вычислений
+                                </h4>
+                                <div class="display-4 fw-bold text-primary">
+                                    @Model.Result
+                                </div>
+                                <hr class="my-3">
+                                <p class="mb-0">
+                                    @(Model.FirstValue) + @(Model.SecondValue) = @Model.Result
+                                </p>
+                            </div>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Подключение библиотеки валидации -->
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <partial name="_ValidationScriptsPartial" />
+}

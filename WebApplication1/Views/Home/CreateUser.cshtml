@@ -1,0 +1,147 @@
+﻿@using WebApplication1.Controllers
+@model CreateUsersViewModel
+@{
+    ViewData["Title"] = "CreateUser";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-gradient-primary text-white py-4 rounded-top-4">
+                    <h3 class="card-title mb-0 text-center">
+                        <i class="fas fa-user-plus me-2"></i>Создание нового пользователя
+                    </h3>
+                    <p class="text-center mb-0 mt-2 opacity-75">Заполните информацию о новом пользователе системы</p>
+                </div>
+                <div class="card-body p-5">
+                    <!-- Сообщение об успешном добавлении -->
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>
+                            @TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <form asp-controller="Home" asp-action="CreateUser" method="post" id="userForm">
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                <i class="fas fa-user me-2 text-primary"></i>Имя пользователя
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="fas fa-signature text-primary"></i>
+                                </span>
+                                <input type="text" asp-for="Name" class="form-control form-control-lg"
+                                       placeholder="Введите имя пользователя" />
+                            </div>
+                            <span asp-validation-for="Name" class="text-danger small mt-1 d-block"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                <i class="fas fa-birthday-cake me-2 text-primary"></i>Возраст
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="fas fa-numbers text-primary"></i>
+                                </span>
+                                <input type="number" asp-for="Age" class="form-control form-control-lg"
+                                       placeholder="Введите возраст" min="1" max="120" />
+                            </div>
+                            <span asp-validation-for="Age" class="text-danger small mt-1 d-block"></span>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button class="btn btn-primary btn-lg rounded-pill px-5 py-3" type="submit" id="submitBtn">
+                                <i class="fas fa-user-check me-2"></i>Создать пользователя
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+                 
+        </div>
+    </div>
+</div>
+
+<!-- Стили для улучшения внешнего вида -->
+<style>
+    body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container {
+        flex: 1;
+    }
+
+    .card {
+        border: none;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #4b6cb7, #182848) !important;
+    }
+
+    .input-group-text {
+        border-right: none;
+        min-width: 50px;
+        justify-content: center;
+    }
+
+    .form-control {
+        border-left: none;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(75, 108, 183, 0.25);
+            border-color: #4b6cb7;
+        }
+
+    .btn-primary {
+        background: linear-gradient(45deg, #4b6cb7, #182848);
+        border: none;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #182848, #4b6cb7);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+    .alert-danger {
+        background: linear-gradient(45deg, #ffdad6, #fff0f0);
+        border: none;
+        color: #c53030;
+    }
+
+    .table th {
+        border-top: none;
+        font-weight: 600;
+        background-color: #f8f9fa;
+    }
+</style>
+
+<!-- Подключение Font Awesome -->
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <partial name="_ValidationScriptsPartial" />
+
+
+}
