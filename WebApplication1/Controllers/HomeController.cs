@@ -53,7 +53,23 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult CreateUser(CreateUsersViewModel model)
         {
-            //ничего не делает, но получает значения для дальнейших дествий, по типу запись в бд
+            if (ModelState.IsValid)
+            {
+
+                // Устанавливаем флаг, что пользователь был добавлен
+                ViewBag.UserAdded = true;
+
+                // Можно также установить сообщение для TempData
+                TempData["SuccessMessage"] = "Пользователь успешно создан!";
+
+                // Очищаем модель для формы
+                ModelState.Clear();
+
+                // Возвращаем представление с пустой моделью
+                return View(new CreateUsersViewModel());
+            }
+
+            // Если модель невалидна, возвращаем её с ошибками
             return View(model);
         }
         public IActionResult Index()
