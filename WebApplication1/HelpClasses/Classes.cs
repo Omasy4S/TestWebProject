@@ -7,6 +7,10 @@ namespace TestWebProject.HelpClasses
         public string? Name { get; init; }
         public int Age { get; init; }
     }
+    public class Product
+    {
+        public string? ProductName { get; set; }
+    }
     public class CreateUsersViewModel
     {
         [Required(ErrorMessage = "Введите имя")]
